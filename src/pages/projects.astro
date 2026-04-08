@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroScene from "../components/three/HeroScene";
+import ProjectGrid from "../components/ProjectGrid";
+import { projects } from "../data/projects";
+
+const gridProjects = projects.map((p) => ({
+  title: p.title,
+  subtitle: p.subtitle,
+  type: p.type,
+  tech: p.tech,
+  image: p.image,
+  demo: p.demo,
+  accent: p.accent,
+  description: p.description,
+}));
+---
+
+<BaseLayout title="Projects — weihung">
+  <section class="h-screen flex flex-col relative">
+    <HeroScene client:only="react" />
+    <div class="relative z-10 pt-28 pb-6 px-8 sm:px-12 flex items-end justify-between shrink-0">
+      <div>
+        <p class="font-heading text-xs uppercase tracking-[0.3em] text-white/50 mb-2">Selected Works</p>
+        <h1 class="font-heading text-3xl sm:text-4xl font-medium text-white" style="letter-spacing: -0.03em;">作品集</h1>
+      </div>
+      <p class="font-heading text-xs uppercase tracking-wider text-white/50">
+        {projects.length} projects — scroll →
+      </p>
+    </div>
+
+    <div class="relative z-10 flex-1 overflow-x-auto overflow-y-hidden px-8 sm:px-12 pb-8" id="h-scroll">
+      <ProjectGrid projects={gridProjects} client:load />
+    </div>
+
+    <div class="absolute bottom-16 left-8 sm:left-12 right-8 sm:right-12 z-10 border-t border-white/[0.06] pt-12 flex items-center justify-between">
+      <a href="/" class="group inline-flex items-center gap-3 font-heading text-sm uppercase tracking-wider text-white/50 hover:text-white transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform group-hover:-translate-x-1">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        View Home
+      </a>
+      <a href="/about" class="group inline-flex items-center gap-3 font-heading text-sm uppercase tracking-wider text-white/50 hover:text-white transition-colors">
+        View About
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  #h-scroll { scrollbar-width: none; }
+  #h-scroll::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const el = document.getElementById("h-scroll");
+  if (el) {
+    el.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY * 2;
+    }, { passive: false });
+  }
+</script>

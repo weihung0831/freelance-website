@@ -1,0 +1,224 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroScene from "../components/three/HeroScene";
+---
+
+<BaseLayout title="About — weihung">
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <HeroScene client:only="react" />
+  </div>
+
+  <section class="pt-32 pb-24 px-8 sm:px-12 relative z-10">
+    <p class="font-heading text-xs uppercase tracking-[0.3em] text-white/50 mb-8 about-fade">
+      About
+    </p>
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <div>
+        <h1 class="font-heading font-medium text-white leading-tight" style="font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.03em;">
+          <span class="about-line"><span class="about-word">不只是寫程式，</span></span>
+          <br />
+          <span class="about-line"><span class="about-word">是把問題解決。</span></span>
+        </h1>
+      </div>
+      <div class="flex flex-col justify-end about-fade">
+        <p class="text-white/40 leading-relaxed mb-4">
+          從前端的互動體驗到後端的 API 設計，從資料庫到部署，能獨立完成整個開發流程。
+        </p>
+        <p class="text-white/40 leading-relaxed">
+          每個專案都追求流暢的使用者體驗和可維護的架構。好的軟體不只是能用，而是要好用。
+        </p>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="mt-32 border-t border-white/[0.06] pt-16">
+      <p class="font-heading text-xs uppercase tracking-[0.3em] text-white/50 mb-12 about-fade">
+        Tech Stack
+      </p>
+
+      {[
+        { label: "Frontend", items: [
+          { name: "JavaScript", color: "247, 223, 30" },
+          { name: "React", color: "61, 218, 251" },
+          { name: "Vue", color: "65, 184, 131" },
+          { name: "Next.js", color: "255, 255, 255" },
+          { name: "TypeScript", color: "49, 120, 198" },
+          { name: "Tailwind CSS", color: "56, 189, 248" },
+        ]},
+        { label: "Backend", items: [
+          { name: "PHP", color: "119, 123, 180" },
+          { name: "Laravel", color: "255, 45, 32" },
+          { name: "Python", color: "255, 212, 59" },
+          { name: "FastAPI", color: "0, 150, 136" },
+          { name: "MySQL", color: "0, 136, 204" },
+        ]},
+        { label: "DevOps", items: [
+          { name: "Docker", color: "29, 155, 240" },
+          { name: "Zeabur", color: "124, 58, 237" },
+        ]},
+      ].map((cat) => (
+        <div class="tech-category about-fade">
+          <p class="font-heading text-xs text-white/50 uppercase tracking-wider mb-4">{cat.label}</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {cat.items.map((t) => (
+              <div class="tech-chip" data-color={t.color}>
+                <div class="tech-glow"></div>
+                <span class="tech-name font-heading text-sm uppercase tracking-wider">
+                  {t.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Page Nav -->
+    <div class="mt-32 border-t border-white/[0.06] pt-12 flex items-center justify-between about-fade">
+      <a href="/projects" class="group inline-flex items-center gap-3 font-heading text-sm uppercase tracking-wider text-white/50 hover:text-white transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform group-hover:-translate-x-1">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        View Projects
+      </a>
+      <a href="/contact" class="group inline-flex items-center gap-3 font-heading text-sm uppercase tracking-wider text-white/50 hover:text-white transition-colors">
+        View Contact
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+  </section>
+</BaseLayout>
+
+<style>
+  .about-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .about-word {
+    display: inline-block;
+    transform: translateY(120%);
+  }
+
+  .about-fade {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .tech-category + .tech-category {
+    margin-top: 1.5rem;
+  }
+
+  .tech-chip {
+    position: relative;
+    padding: 0.875rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    cursor: default;
+    opacity: 0;
+    transform: translateY(12px);
+    overflow: hidden;
+    transition: border-color 0.4s ease, transform 0.3s ease, background 0.4s ease;
+  }
+
+  .tech-glow {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .tech-name {
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.4s ease;
+  }
+
+  .tech-chip:hover {
+    border-color: var(--chip-color, rgba(255,255,255,0.3));
+    transform: translateY(-2px);
+  }
+
+  .tech-chip:hover .tech-glow {
+    opacity: 1;
+  }
+
+  .tech-chip:hover .tech-name {
+    color: rgba(255,255,255,0.95);
+  }
+
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let abortController: AbortController | null = null;
+
+  function initAbout() {
+    // Clean up previous listeners and ScrollTriggers
+    abortController?.abort();
+    abortController = new AbortController();
+    const { signal } = abortController;
+
+    ScrollTrigger.getAll().forEach((st) => st.kill());
+
+    gsap.to(".about-word", {
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      stagger: 0.15,
+      delay: 0.2,
+    });
+
+    gsap.to(".about-fade", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.12,
+      delay: 0.6,
+    });
+
+    gsap.to(".tech-chip", {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      stagger: 0.05,
+      delay: 0.8,
+      clearProps: "transform",
+      scrollTrigger: {
+        trigger: ".tech-chip",
+        start: "top 85%",
+      },
+    });
+
+    document.querySelectorAll(".tech-chip").forEach((chip) => {
+      const el = chip as HTMLElement;
+      const color = el.dataset.color || "255,255,255";
+      el.style.setProperty("--chip-color", `rgba(${color}, 0.4)`);
+
+      const glow = el.querySelector(".tech-glow") as HTMLElement;
+      glow.style.background = `radial-gradient(circle at 50% 50%, rgba(${color}, 0.15) 0%, transparent 70%)`;
+
+      el.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        glow.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(${color}, 0.15) 0%, transparent 70%)`;
+      }, { signal });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initAbout);
+</script>
