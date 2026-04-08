@@ -1,43 +1,54 @@
-# Astro Starter Kit: Minimal
+# weihung — Freelance Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+Personal freelance portfolio website showcasing full-stack development projects.
+
+[繁體中文](./README.zh-TW.md)
+
+## Tech Stack
+
+- **Framework**: Astro 6 + React 19
+- **Styling**: Tailwind CSS 4
+- **Animation**: GSAP + Three.js (R3F)
+- **Language**: TypeScript
+- **Deployment**: Docker + nginx → Zeabur
+
+## Getting Started
+
+```bash
+npm install
+npm run dev       # localhost:4321
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Build & Deploy
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm run build     # Output static files to ./dist/
+npm run preview   # Preview build locally
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Docker:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+docker build -t freelance-website .
+docker run -p 8080:8080 freelance-website
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Project Structure
 
-## 🧞 Commands
+```
+src/
+├── pages/           # index, projects, about, contact
+├── components/      # Nav, ProjectGrid, three/HeroScene
+├── layouts/         # BaseLayout (shared head + nav)
+├── data/            # projects.ts (portfolio data)
+└── styles/          # global.css
+```
 
-All commands are run from the root of the project, from a terminal:
+## Pages
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Route | Description |
+|-------|-------------|
+| `/` | Home — aurora background + title animation |
+| `/projects` | Portfolio — horizontal scroll cards |
+| `/about` | About — interactive tech stack display |
+| `/contact` | Contact — Email / GitHub / LINE |
